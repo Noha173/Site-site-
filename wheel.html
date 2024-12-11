@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>عجلة الحظ</title>
+  <style>
+    /* تنسيق العجلة وأزرارها */
+  </style>
+</head>
+<body>
+  <h1>عجلة الحظ</h1>
+  <div class="wheel-container">
+    <div class="wheel" id="wheel">
+      <!-- أقسام العجلة هنا -->
+    </div>
+    <div class="pointer"></div>
+  </div>
+  <button class="spin-btn" onclick="spinWheel()">قم بتدوير العجلة</button>
+  <div class="result" id="result"></div>
+  <script>
+    function spinWheel() {
+      const params = new URLSearchParams(window.location.search);
+      const amount = parseFloat(params.get('amount')) || 0;
+      const winAmount = (amount * 0.1).toFixed(2); // حساب الربح
+      const wheel = document.getElementById('wheel');
+      const result = document.getElementById('result');
+      const spinDegrees = Math.floor(Math.random() * (5000 - 3000) + 3000); // دوران عشوائي
+      wheel.style.transform = `rotate(${spinDegrees}deg)`;
+      setTimeout(() => {
+        result.innerText = `لقد ربحت ${winAmount} دولار بناءً على دفعتك (${amount} دولار).`;
+        localStorage.setItem('balance', winAmount); // حفظ الرصيد
+      }, 5000);
+    }
+  </script>
+  <button onclick="window.location.href = 'account.html';">العودة إلى حسابك</button>
+</body>
+</html>
